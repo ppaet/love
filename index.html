@@ -58,6 +58,8 @@
     <div id="time"></div>
     <div class="heart">❤️</div>
 
+    <footer id="startDate"></footer>
+
     <script>
         const titles = ["❤️ rzy love ymx ❤️", "💕 ymx love rzy 💕"];
         let i = 0;
@@ -82,8 +84,14 @@
                 `${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`;
         }
 
+        function showStartDate() {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById("startDate").textContent = `我们的开始：${startDate.toLocaleDateString('zh-CN', options)}`;
+        }
+
         setInterval(updateTime, 1000);
         updateTime();
+        showStartDate();
     </script>
 </body>
 
