@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>日期间隔</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="result"></h1>
+
+    <script>
+        // 修改为你的目标日期
+        const targetDate = new Date("2025-09-20T00:00:00");
+
+        function updateDiff() {
+            const now = new Date();
+            const diff = now - targetDate; // 正数 = 已经过了，负数 = 还没到
+
+            const absDiff = Math.abs(diff);
+
+            const days = Math.floor(absDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((absDiff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((absDiff / (1000 * 60)) % 60);
+            const seconds = Math.floor((absDiff / 1000) % 60);
+
+            if (diff >= 0) {
+                document.getElementById("result").textContent =
+                    `目标日期已过去 ${days}天 ${hours}小时 ${minutes}分钟 ${seconds}秒`;
+            } else {
+                document.getElementById("result").textContent =
+                    `距离目标日期还剩 ${days}天 ${hours}小时 ${minutes}分钟 ${seconds}秒`;
+            }
+        }
+
+        setInterval(updateDiff, 1000);
+        updateDiff();
+    </script>
+</body>
+
+</html>
