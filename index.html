@@ -2,7 +2,7 @@
 <html lang="zh">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>💕 rzy love ymx 💕</title>
     <link rel="icon" href="./favicon-32x32.png" type="image/png">
     <style>
@@ -16,6 +16,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
+            position: relative;
         }
 
         h1 {
@@ -50,6 +52,47 @@
                 transform: scale(1.3);
             }
         }
+
+        /* 爱心气泡 */
+        .love-bubble {
+            position: absolute;
+            pointer-events: none;
+            animation: rise 1s forwards;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 背景飘落心 */
+        .bg-heart {
+            position: absolute;
+            bottom: -20px;
+            font-size: 1em;
+            color: rgba(255, 77, 109, 0.7);
+            pointer-events: none;
+            animation: floatUp linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -57,41 +100,58 @@
     <h1>💕 我们已经恋爱了 💕</h1>
     <div id="time"></div>
     <div class="heart">❤️</div>
-
     <footer id="startDate"></footer>
 
     <script>
         const titles = ["❤️ rzy love ymx ❤️", "💕 ymx love rzy 💕"];
         let i = 0;
-        setInterval(() => {
-            document.title = titles[i % titles.length];
-            i++;
-        }, 1000); // 每秒切换一次
+        setInterval(() => { document.title = titles[i % titles.length]; i++; }, 1000);
 
-        // 设置恋爱开始日期
-        const startDate = new Date("2025-09-20T00:00:00"); // 改成你的恋爱日期
-
+        const startDate = new Date("2025-09-20T00:00:00");
         function updateTime() {
             const now = new Date();
             const diff = now - startDate;
-
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
             const minutes = Math.floor((diff / (1000 * 60)) % 60);
             const seconds = Math.floor((diff / 1000) % 60);
-
-            document.getElementById("time").textContent =
-                `${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`;
+            document.getElementById("time").textContent = `${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`;
         }
-
         function showStartDate() {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             document.getElementById("startDate").textContent = `我们的开始：${startDate.toLocaleDateString('zh-CN', options)}`;
         }
-
         setInterval(updateTime, 1000);
         updateTime();
         showStartDate();
+
+        // 鼠标爱心气泡随机化
+        document.addEventListener('mousemove', (e) => {
+            const bubble = document.createElement('div');
+            bubble.className = 'love-bubble';
+            bubble.textContent = '❤️';
+            const size = Math.random() * 20 + 10;
+            bubble.style.fontSize = size + 'px';
+            bubble.style.left = e.clientX - (size / 2) + 'px';
+            bubble.style.top = e.clientY - (size / 2) + 'px';
+            bubble.style.animationDuration = (0.8 + Math.random() * 0.5) + 's';
+            document.body.appendChild(bubble);
+            setTimeout(() => { bubble.remove(); }, 1200);
+        });
+
+        // 背景随机飘落心
+        function createBgHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'bg-heart';
+            heart.textContent = '❤️';
+            const size = Math.random() * 15 + 10;
+            heart.style.fontSize = size + 'px';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 10000);
+        }
+        setInterval(createBgHeart, 300);
     </script>
 </body>
 
