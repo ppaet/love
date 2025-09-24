@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>我们的恋爱时光</title>
+    <title>💕 rzy love ymx 💕</title>
+    <link rel="icon" href="./favicon-32x32.png" type="image/png">
     <style>
         body {
             font-family: "Microsoft Yahei", sans-serif;
@@ -58,6 +59,13 @@
     <div class="heart">❤️</div>
 
     <script>
+        const titles = ["❤️ rzy love ymx ❤️", "💕 ymx love rzy 💕"];
+        let i = 0;
+        setInterval(() => {
+            document.title = titles[i % titles.length];
+            i++;
+        }, 1000); // 每秒切换一次
+
         // 设置恋爱开始日期
         const startDate = new Date("2025-09-20T00:00:00"); // 改成你的恋爱日期
 
